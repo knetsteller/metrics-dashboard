@@ -1,24 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { DashboardComponent } from "./dashboard/dashboard.component";
-
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, DashboardComponent],
+  imports: [CommonModule, RouterOutlet, RouterLink, DashboardComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
-  
-
   title = 'angular-hello-world';
+  private router = inject(Router);
 
-
-
-  addNewWish() {
-
+  get showDashboard(): boolean {
+    return this.router.url !== '/welcome';
   }
+
+  addNewWish() {}
 }
