@@ -1,26 +1,26 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 interface Metric {
-  used: number,
-  available: number
-};
+  used: number;
+  available: number;
+}
 
 interface Node {
-  name: string,
-  cpu: Metric,
-  mem: Metric
-};
+  name: string;
+  cpu: Metric;
+  mem: Metric;
+}
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  cpu: Metric = {used: 0, available: 0};
-  mem: Metric = {used: 0, available: 0};
+  cpu: Metric = { used: 0, available: 0 };
+  mem: Metric = { used: 0, available: 0 };
   cluster1: Node[] = [];
   cluster2: Node[] = [];
   interval: any;
@@ -35,12 +35,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     clearInterval(this.interval);
+    console.log(' ');
   }
 
   generateData(): void {
     this.cluster1 = [];
     this.cluster2 = [];
-    this.cpu = {used: 0, available: 0};
+    this.cpu = { used: 0, available: 0 };
     for (let i = 1; i < 4; i++) {
       this.cluster1.push(this.randomNode(i));
     }
@@ -53,8 +54,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private randomNode(i: number): Node {
     let node = {
       name: 'node' + i,
-      cpu: {available: 16, used: this.randomInteger(0, 16)},
-      mem: {available: 48, used: this.randomInteger(0, 48)}
+      cpu: { available: 16, used: this.randomInteger(0, 16) },
+      mem: { available: 48, used: this.randomInteger(0, 48) },
     };
 
     this.cpu.used += node.cpu.used;
@@ -68,5 +69,4 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private randomInteger(min: number = 0, max: number = 100): number {
     return Math.floor(Math.random() * max) + 1;
   }
-
 }
